@@ -14,7 +14,7 @@ stages:
     - script: | 
         mkdir -p build_output
         mv target/*.jar target/app.jar
-        cp target/*.jar build_output/
+        cp target/app.jar build_output/
         cd build_output
         zip -r app.zip app.jar
 
