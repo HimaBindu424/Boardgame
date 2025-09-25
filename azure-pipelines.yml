@@ -19,7 +19,7 @@ stages:
   
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/build_output/app.zip'
+        PathtoPublish: '$(Build.SourcesDirectory)/build_output/app.zip'
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
