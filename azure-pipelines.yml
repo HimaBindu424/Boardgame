@@ -1,0 +1,24 @@
+trigger:
+- main
+
+pool:
+  name: Default
+
+stages:
+- stage: build
+  jobs:
+  - job: build
+    steps:
+    - script: mvn package
+
+- stage: deploy 
+  jobs:
+  - job: deployjob
+    steps:
+    - task: AzureRmWebAppDeployment@5
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'resourcegroup'
+        appType: 'webApp'
+        WebAppName: 'sdfregx'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
