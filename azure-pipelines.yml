@@ -11,14 +11,30 @@ stages:
     steps:
     - script: mvn package
 
+    - script: | 
+        mkdir -p build_output
+        cp target/*.jar build_output/
+        cd build_output
+        zip -r app.zip .
+  
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/build_output/app.zip'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
 - stage: deploy 
   jobs:
   - job: deployjob
     steps:
-    - task: AzureRmWebAppDeployment@5
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'resourcegroup'
-        appType: 'webApp'
-        WebAppName: 'sdfregx'
-        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+     - task: DownloadBuildArtifacts@1
+       inputs:
+         buildType: 'current'
+         downloadType: 'single'
+         artifactName: 'drop'
+         downloadPath: '$(System.ArtifactsDirectory)'
+
+     - script: |
+           
+           ls
+           pwd
