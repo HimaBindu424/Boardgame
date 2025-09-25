@@ -13,9 +13,11 @@ stages:
 
     - script: | 
         mkdir -p build_output
+        mv target/*.jar target/app.jar
         cp target/*.jar build_output/
         cd build_output
-        zip -r app.zip .
+        zip -r app.zip app.jar
+
   
     - task: PublishBuildArtifacts@1
       inputs:
@@ -41,3 +43,19 @@ stages:
          appType: 'webApp'
          WebAppName: 'sdfregx'
          packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+
+
+     - task: AzureAppServiceSettings@1
+       inputs:
+         azureSubscription: 'resourcegroup'
+         appName: 'sdfregx'
+         resourceGroupName: 'webapptest'
+         appSettings: |
+           [
+             {
+            "name": "WEBSITE_STARTUP_FILE",
+            "value": "java -jar /home/site/wwwroot/app.jar",
+            "slotSetting": false
+             }
+       
+           ] 
