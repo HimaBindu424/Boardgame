@@ -65,6 +65,15 @@ stages:
 - stage: deploytoprod
   condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/main')
   jobs:
+
+  - job: approvaljob
+    pool: server
+    steps:
+    - task: ManualValidation@0
+      inputs:
+        notifyUsers: 
+        - 424bindu@gmail.com    
+        
   - job: deployprodjob
     steps:
      - task: DownloadBuildArtifacts@1

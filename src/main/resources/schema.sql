@@ -19,7 +19,9 @@ alter table reviews
   references boardgames (id);
 
 insert into boardgames (name, level, minPlayers, maxPlayers, gameType)
+
 values ('Splendor_Prod1', 3, 2, '4', 'Strategy Game');
+
  
 insert into boardgames (name, level, minPlayers, maxPlayers, gameType)
 values ('test12', 2, 1, '6', 'Strategy Game'); 
