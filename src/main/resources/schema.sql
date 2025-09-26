@@ -22,7 +22,7 @@ insert into boardgames (name, level, minPlayers, maxPlayers, gameType)
 values ('Splendor_Prod1', 3, 2, '4', 'Strategy Game');
  
 insert into boardgames (name, level, minPlayers, maxPlayers, gameType)
-values ('Clue', 2, 1, '6', 'Strategy Game'); 
+values ('test12', 2, 1, '6', 'Strategy Game'); 
 
 insert into boardgames (name, level, minPlayers, maxPlayers, gameType)
 values ('Linkee', 1, 2, '+', 'Trivia Game'); 
