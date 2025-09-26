@@ -41,7 +41,7 @@ stages:
          ConnectionType: 'AzureRM'
          azureSubscription: 'resourcegroup'
          appType: 'webApp'
-         WebAppName: 'sdfregx'
+         WebAppName: 'sdfregx-linux'
          packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
 
 
@@ -52,6 +52,6 @@ stages:
          scriptLocation: 'inlineScript'
          inlineScript: |
            az webapp config set \
-           --name sdfregx \
+           --name sdfregx-linux \
            --resource-group webapptest \
            --startup-file "java -jar /home/site/wwwroot/app.jar"
