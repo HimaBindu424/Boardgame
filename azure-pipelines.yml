@@ -45,17 +45,13 @@ stages:
          packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
 
 
-     - task: AzureAppServiceSettings@1
+     - task: AzureCLI@2
        inputs:
          azureSubscription: 'resourcegroup'
-         appName: 'sdfregx'
-         resourceGroupName: 'webapptest'
-         appSettings: |
-           [
-             {
-            "name": "WEBSITE_STARTUP_FILE",
-            "value": "java -jar /home/site/wwwroot/app.jar",
-            "slotSetting": false
-             }
-       
-           ] 
+         scriptType: 'bash'
+         scriptLocation: 'inlineScript'
+         inlineScript: |
+           az webapp config set \
+           --name sdfregx \
+           --resource-group webapptest \
+           --startup-file "java -jar /home/site/wwwroot/app.jar"
