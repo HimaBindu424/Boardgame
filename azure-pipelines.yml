@@ -10,7 +10,7 @@ stages:
   jobs:
   - job: build
     steps:
-    - script: mvn package
+    - script: mvn clean package
 
     - script: | 
         mkdir -p build_output
@@ -63,7 +63,7 @@ stages:
            --startup-file "java -jar /home/site/wwwroot/app.jar"
 
 - stage: deploytoprod
-  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/main')
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))
   jobs:
   - job: deployprodjob
     steps:
