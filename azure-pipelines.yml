@@ -26,9 +26,42 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
-- stage: deploy 
+- stage: deploytodev
+  dependsOn: build
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/bindu-dev/'))
   jobs:
-  - job: deployjob
+  - job: deploydevjob
+    steps:
+     - task: DownloadBuildArtifacts@1
+       inputs:
+         buildType: 'current'
+         downloadType: 'single'
+         artifactName: 'drop'
+         downloadPath: '$(System.ArtifactsDirectory)'
+
+     - task: AzureRmWebAppDeployment@5
+       inputs:
+         ConnectionType: 'AzureRM'
+         azureSubscription: 'resourcegroup'
+         appType: 'webApp'
+         WebAppName: 'webappedfsdf-dev'
+         packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+
+
+     - task: AzureCLI@2
+       inputs:
+         azureSubscription: 'resourcegroup'
+         scriptType: 'bash'
+         scriptLocation: 'inlineScript'
+         inlineScript: |
+           az webapp config set \
+           --name webappedfsdf-dev \
+           --resource-group webapptest \
+           --startup-file "java -jar /home/site/wwwroot/app.jar"
+
+- stage: deploytoprod
+  jobs:
+  - job: deployprodjob
     steps:
      - task: DownloadBuildArtifacts@1
        inputs:
@@ -56,3 +89,4 @@ stages:
            --name sdfregx-linux \
            --resource-group webapptest \
            --startup-file "java -jar /home/site/wwwroot/app.jar"
+
