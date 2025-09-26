@@ -28,7 +28,7 @@ stages:
 
 - stage: deploytodev
   dependsOn: build
-  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/bindu-dev/'))
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/bindu-dev'))
   jobs:
   - job: deploydevjob
     steps:
