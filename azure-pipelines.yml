@@ -17,7 +17,7 @@ stages:
         mv target/*.jar target/app.jar
         cp target/app.jar build_output/
         cd build_output
-        zip -r app.zip app.jar
+        zip -r app.zip app.jar  
 
   
     - task: PublishBuildArtifacts@1
@@ -25,6 +25,9 @@ stages:
         PathtoPublish: '$(Build.SourcesDirectory)/build_output/app.zip'
         ArtifactName: 'drop'
         publishLocation: 'Container'
+
+    - script: echo '$(Build.SourceBranch)'
+      displayName: displaythe source
 
 - stage: deploytodev
   dependsOn: build
