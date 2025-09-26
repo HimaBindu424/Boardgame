@@ -73,7 +73,7 @@ stages:
       inputs:
         notifyUsers: 
         - 424bindu@gmail.com    
-
+        
   - job: deployprodjob
     steps:
      - task: DownloadBuildArtifacts@1
