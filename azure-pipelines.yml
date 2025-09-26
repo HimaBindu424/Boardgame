@@ -60,6 +60,7 @@ stages:
            --startup-file "java -jar /home/site/wwwroot/app.jar"
 
 - stage: deploytoprod
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))
   jobs:
   - job: deployprodjob
     steps:
