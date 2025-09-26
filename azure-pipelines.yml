@@ -1,5 +1,6 @@
 trigger:
 - main
+- bindu-dev
 
 pool:
   name: Default
