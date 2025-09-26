@@ -71,8 +71,8 @@ stages:
     steps:
     - task: ManualValidation@0
       inputs:
-        notifyUsers: 
-        - 424bindu@gmail.com    
+        notifyUsers: |
+          424bindu@gmail.com    
         
   - job: deployprodjob
     steps:
