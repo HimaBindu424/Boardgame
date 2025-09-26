@@ -19,7 +19,7 @@ alter table reviews
   references boardgames (id);
 
 insert into boardgames (name, level, minPlayers, maxPlayers, gameType)
-values ('CRICKET-DEV06', 3, 2, '4', 'Strategy Game');
+values ('CRICKET-DEV6', 3, 2, '4', 'Strategy Game');
  
 insert into boardgames (name, level, minPlayers, maxPlayers, gameType)
 values ('Clue', 2, 1, '6', 'Strategy Game'); 
